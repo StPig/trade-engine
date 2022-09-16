@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package protocol;
+
+option go_package = "proto/protocol";
+
+service Exchange {
+    rpc CreateOrder (CreateOrderRequest) returns (ExecutionReport) {}
+}
+
+message CreateOrderRequest {
+    string name = 1;
+    int32 reqOrdID = 2;
+    uint64 price = 3;
+    uint64 quantity = 4;
+    enum OrderType {
+        Market = 0;
+        Limit = 1;
+    }
+    enum OrderSide {
+        Buy = 0;
+        Sell = 1;
+    }
+    OrderType orderType = 5;
+    OrderSide orderSide = 6;
+}
+
+message ExecutionReport {
+    string name = 1;
+    int32 reqOrdID = 2;
+    string status = 3;
+}
